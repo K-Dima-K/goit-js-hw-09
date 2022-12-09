@@ -4,6 +4,8 @@ const refs = {
   body: document.querySelector('body'),
 };
 
+let intervalId = null;
+
 refs.stop.setAttribute('disabled', true);
 
 function getRandomHexColor() {

@@ -30,6 +30,7 @@ const options = {
 const flatpickrResult = flatpickr(refs.input, options);
 
 function onStartClick() {
+  let intervalId = null;
   let isActive = false;
 
   if (isActive) {
@@ -38,20 +39,20 @@ function onStartClick() {
 
   isActive = true;
 
-  intervalId = setInterval(() => {
+  this.intervalId = setInterval(() => {
     const deltaTime = flatpickrResult.selectedDates[0] - Date.now();
     const time = convertMs(deltaTime);
     updateInterface(time);
 
     // console.log(`${days}:${hours}:${minutes}:${seconds}`);
     if (deltaTime < 1000) {
-      return stop();
+      return stop(this.intervalId);
     }
   }, 1000);
 }
 
-function stop() {
-  clearInterval(this.intervalId);
+function stop(interval) {
+  clearInterval(interval);
 }
 
 function convertMs(ms) {
